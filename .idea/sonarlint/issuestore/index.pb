@@ -65,5 +65,3 @@ w
 Gbackend/src/main/java/com/batuhan/youcontribute/config/AsyncConfig.java,7/a/7a898fdcc8ff89ccc5b608af904d9f1e789ac2d0
 ~
 Nbackend/src/main/java/com/batuhan/youcontribute/config/RestTemplateConfig.java,3/a/3a55303f9e9567e3f4254a42032f5737baad4b0d
-p
-@backend/src/main/java/com/batuhan/youcontribute/Application.java,f/1/f16697016f724da73506be0c86986e3636240853
