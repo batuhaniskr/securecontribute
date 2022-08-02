@@ -1,5 +1,7 @@
 package com.batuhan.youcontribute.managers;
 
+import com.batuhan.youcontribute.config.ApplicationProperties;
+import com.batuhan.youcontribute.config.GithubProperties;
 import com.batuhan.youcontribute.models.Issue;
 import com.batuhan.youcontribute.models.Repository;
 import com.batuhan.youcontribute.service.GithubClient;
@@ -14,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +33,8 @@ public class RepositoryManager {
 
     private final IssueService issueService;
 
+    private final ApplicationProperties applicationProperties;
+
     public void importRepository(String organization, String repository) {
         this.repositoryService.create(organization, repository);
     }
@@ -37,9 +42,10 @@ public class RepositoryManager {
 
     @Async
     public void importIssues(Repository repository) {
-        LocalDate sinceYesterday = LocalDate.ofInstant(Instant.now().minus(1, ChronoUnit.DAYS), ZoneId.systemDefault());
+        int schedulerFrequencyInMinutes = applicationProperties.getImportFrequency() / 60000;
+        LocalDate since = LocalDate.ofInstant(Instant.now().minus(schedulerFrequencyInMinutes, ChronoUnit.MINUTES), ZoneOffset.UTC);
         GithubIssueResponse[] githubIssueResponses = this.githubClient
-                .listIssues(repository.getOrganization(), repository.getRepository(), sinceYesterday);
+                .listIssues(repository.getOrganization(), repository.getRepository(), since);
         List<Issue> issues = Arrays.stream(githubIssueResponses).map(githubIssueResponse ->
                 Issue.builder().title(githubIssueResponse.getTitle())
                         .body(githubIssueResponse.getBody()).build()).collect(Collectors.toList());
