@@ -46,9 +46,11 @@ public class RepositoryManager {
         LocalDate since = LocalDate.ofInstant(Instant.now().minus(schedulerFrequencyInMinutes, ChronoUnit.MINUTES), ZoneOffset.UTC);
         GithubIssueResponse[] githubIssueResponses = this.githubClient
                 .listIssues(repository.getOrganization(), repository.getRepository(), since);
+        System.out.println(githubIssueResponses[0].body);
         List<Issue> issues = Arrays.stream(githubIssueResponses).map(githubIssueResponse ->
                 Issue.builder().title(githubIssueResponse.getTitle())
-                        .body(githubIssueResponse.getBody()).build()).collect(Collectors.toList());
+                  .githubIssueId(githubIssueResponse.getId())
+                        .body(githubIssueResponse.getBody()).repository(repository).build()).collect(Collectors.toList());
         this.issueService.saveAll(issues);
     }
 

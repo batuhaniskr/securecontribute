@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { RepositoryService } from '../services/repository.service';
 import {first} from "rxjs/operators";
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-import',
@@ -12,28 +14,38 @@ import {first} from "rxjs/operators";
 export class ImportComponent implements OnInit {
 
   faPLus = faPlus
+  loading = false;
 
   importRepositoryForm: FormGroup = this.formBuilder.group({
     organization: ['', Validators.required],
     repository: ['', Validators.required],     
   });
 
-  constructor(private formBuilder: FormBuilder, private repositoryService: RepositoryService) { }
+  constructor(private formBuilder: FormBuilder, 
+              private repositoryService: RepositoryService, 
+              private toastr: ToastrService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
   }
 
   import() {
-    alert(JSON.stringify(this.importRepositoryForm.getRawValue()));
+    this.loading = true;
     this.repositoryService.import(this.importRepositoryForm.get('organization')?.value, this.importRepositoryForm.get('repository')?.value)
     .pipe(first())
     .subscribe(() => {
-      alert("Imported successfully")
+      this.loading = false;
+      this.toastr.success("Imported successfully","Success");
+      setTimeout(() => {
+        this.router.navigate(['home'])
+      }, 2000);
     },
       error => {
-        alert(error)
+        this.loading = false;
+        console.log(error);
+        this.toastr.error(error.error.message,"Error");
       });
-  }
+  }  
 
 }

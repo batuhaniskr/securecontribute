@@ -9,10 +9,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IssueListComponent } from './issues/issue-list/issue-list.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
   {path: 'import', component: ImportComponent },
+  {path: 'repository/:id/issue', component: IssueListComponent },
   {path: '', redirectTo: 'home', pathMatch: 'full' },
 ]
 
@@ -20,16 +24,18 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    ImportComponent
+    ImportComponent,
+    IssueListComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FontAwesomeModule
-    
+    FontAwesomeModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

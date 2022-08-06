@@ -5,6 +5,7 @@ import com.batuhan.youcontribute.models.Repository;
 import com.batuhan.youcontribute.repositories.RepositoryRepository;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -30,6 +31,11 @@ public class RepositoryService {
         .ifPresent((r) -> {
           throw new DuplicatedRepositoryException(organization, repository);
         });
+    }
+
+    public Repository findById(Integer repositoryId) {
+      return this.repositoryRepository.findById(repositoryId).orElseThrow(
+        () -> new EntityNotFoundException(String.format("Repository: %d is not found",repositoryId)));
     }
 
     public List<Repository> list() {

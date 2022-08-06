@@ -1,5 +1,6 @@
 package com.batuhan.youcontribute.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,8 +22,15 @@ public class Issue {
     @GenericGenerator(strategy = "native", name = "native")
     private Integer id;
 
+    private Long githubIssueId;
+
     private String title;
 
     @Column(columnDefinition = "text")
     private String body;
+
+    @ManyToOne
+    @JoinColumn
+    @JsonManagedReference
+    private Repository repository;
 }
