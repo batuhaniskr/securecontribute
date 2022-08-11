@@ -26,6 +26,10 @@ public class Issue {
 
     private String title;
 
+    private String url;
+
+    private Integer githubIssueNumber;
+
     @Column(columnDefinition = "text")
     private String body;
 

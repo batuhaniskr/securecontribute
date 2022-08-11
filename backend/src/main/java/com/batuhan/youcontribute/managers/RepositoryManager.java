@@ -21,6 +21,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,10 +47,14 @@ public class RepositoryManager {
         LocalDate since = LocalDate.ofInstant(Instant.now().minus(schedulerFrequencyInMinutes, ChronoUnit.MINUTES), ZoneOffset.UTC);
         GithubIssueResponse[] githubIssueResponses = this.githubClient
                 .listIssues(repository.getOrganization(), repository.getRepository(), since);
-        System.out.println(githubIssueResponses[0].body);
-        List<Issue> issues = Arrays.stream(githubIssueResponses).map(githubIssueResponse ->
+
+        List<Issue> issues = Arrays.stream(githubIssueResponses)
+          .filter(githubIssueResponse -> Objects.isNull(githubIssueResponse.getPullRequest()))
+          .map(githubIssueResponse ->
                 Issue.builder().title(githubIssueResponse.getTitle())
                   .githubIssueId(githubIssueResponse.getId())
+                  .githubIssueNumber(githubIssueResponse.getNumber())
+                  .url(githubIssueResponse.getHtmlUrl())
                         .body(githubIssueResponse.getBody()).repository(repository).build()).collect(Collectors.toList());
         this.issueService.saveAll(issues);
     }

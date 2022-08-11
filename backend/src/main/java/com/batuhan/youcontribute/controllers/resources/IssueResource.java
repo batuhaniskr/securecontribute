@@ -15,15 +15,21 @@ public class IssueResource {
 
   private Long githubIssueId;
 
+  private Integer githubIssueNumber;
+
   private String title;
 
   private String body;
+
+  private String url;
 
   public static IssueResource createFor(Issue issue) {
     return IssueResource.builder()
       .id(issue.getId())
       .title(issue.getTitle())
       .body(issue.getBody())
+      .url(issue.getUrl())
+      .githubIssueNumber(issue.getGithubIssueNumber())
       .githubIssueId(issue.getGithubIssueId()).build();
   }
 
