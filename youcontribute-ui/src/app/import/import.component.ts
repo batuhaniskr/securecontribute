@@ -1,7 +1,7 @@
   import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { RepositoryService } from '../services/repository.service';
+import { RepositoryService } from '../_services/repository.service';
 import {first} from "rxjs/operators";
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';

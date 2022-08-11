@@ -4,14 +4,15 @@
             <thead>
               <tr>
                 <th scope="col">Github Issue Id</th>
-                <th scope="col">Title</th>                                
+                <th scope="col">Title</th>           
+                <th scope="col">Action</th>                                
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let issue of issues">                            
-                <td>{{ issue.organization }}</td>
-                <td>{{ issue.name }}</td>
-                <td><a  class="btn btn-primary" [routerLink]="['issues', repository.id]" role="button"><fa-icon [icon]="faBug"></fa-icon> Issues</a></td>
+                <td>{{ issue.githubIssueId }}</td>
+                <td>{{ issue.title }}</td>
+                <td><a  class="btn btn-primary" [href]="issue.url" target="_blank" role="button"><fa-icon [icon]="faLink"></fa-icon> Issues</a></td>
               </tr>
             </tbody>
           </table>

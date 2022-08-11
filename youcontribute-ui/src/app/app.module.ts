@@ -16,7 +16,7 @@ import { IssueListComponent } from './issues/issue-list/issue-list.component';
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
   {path: 'import', component: ImportComponent },
-  {path: 'repository/:id/issue', component: IssueListComponent },
+  {path: 'repository/:id/issues', component: IssueListComponent },
   {path: '', redirectTo: 'home', pathMatch: 'full' },
 ]
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faBug } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs/operators';
-import { RepositoryService } from '../services/repository.service';
+import { RepositoryService } from '../_services/repository.service';
 import { Repository } from '../_models/repository';
 
 @Component({
