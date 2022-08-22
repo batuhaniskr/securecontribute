@@ -6,6 +6,7 @@ import com.batuhan.youcontribute.repositories.IssueRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,5 +26,10 @@ public class IssueService {
     public List<Issue> list(Integer repositoryId) {
       Repository repository = repositoryService.findById(repositoryId);
       return issueRepository.findByRepository(repository);
+    }
+
+    public Issue findRandomIssue() {
+      return issueRepository.findRandomIssue()
+        .orElseThrow(() -> new EntityNotFoundException("No issue not found"));
     }
 }
