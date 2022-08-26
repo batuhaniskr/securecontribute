@@ -1,5 +1,6 @@
 package com.batuhan.youcontribute.schedulers;
 
+import com.batuhan.youcontribute.clients.OneSignalClient;
 import com.batuhan.youcontribute.models.Issue;
 import com.batuhan.youcontribute.models.IssueChallenge;
 import com.batuhan.youcontribute.service.IssueChallengeService;
@@ -18,6 +19,8 @@ public class ChallengeIssueScheduler {
 
   private final IssueChallengeService issueChallengeService;
 
+  private final OneSignalClient oneSignalClient;
+
   @Scheduled(fixedRateString = "${application.challenge-frequency}")
   public void importIssueScheduler() {
     log.info("Challenge issue scheduler started");
@@ -28,5 +31,7 @@ public class ChallengeIssueScheduler {
     Issue randomIssue = this.issueService.findRandomIssue();
     log.info("Found a random issues {}", randomIssue.getId());
     IssueChallenge issueChallenge = issueChallengeService.create(randomIssue);
+    oneSignalClient.sendNotification(issueChallenge.getId(),randomIssue.getTitle());
+    log.info("Challange issue scheduler finished");
   }
 }

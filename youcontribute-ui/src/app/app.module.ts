@@ -12,11 +12,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IssueListComponent } from './issues/issue-list/issue-list.component';
+import { AcceptComponent } from './challenges/accept/accept.component';
+import { RejectComponent } from './challanges/reject/reject.component';
+import { ChallengeListComponent } from './challenges/challenge-list/challenge-list.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
   {path: 'import', component: ImportComponent },
   {path: 'repository/:id/issues', component: IssueListComponent },
+  {path: 'challenge/:id/accept', component: AcceptComponent },
+  {path: 'challenge/:id/reject', component: RejectComponent },
+  {path: 'challenges/', component: ChallengeListComponent },
   {path: '', redirectTo: 'home', pathMatch: 'full' },
 ]
 
@@ -25,7 +31,10 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     ImportComponent,
-    IssueListComponent
+    IssueListComponent,
+    AcceptComponent,
+    RejectComponent,
+    ChallengeListComponent
   ],
   imports: [
     BrowserModule,

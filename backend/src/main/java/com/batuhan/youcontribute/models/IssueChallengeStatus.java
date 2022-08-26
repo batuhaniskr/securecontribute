@@ -13,14 +13,13 @@ public enum IssueChallengeStatus {
   PENDING("PENDING"),
   ACCEPTED("ACCEPTED"),
   REJECTED("REJECTED"),
-  IN_PROGRESS("IN_PROGRESS"),
   COMPLETED("COMPLETED");
 
   private String value;
 
   public static List<IssueChallengeStatus> ongoingStatuses() {
     return Arrays.stream(IssueChallengeStatus.values()).filter(
-      status -> PENDING.equals(status) || ACCEPTED.equals(status) || IN_PROGRESS.equals(status))
+      status -> PENDING.equals(status) || ACCEPTED.equals(status))
       .collect(Collectors.toList());
   }
 

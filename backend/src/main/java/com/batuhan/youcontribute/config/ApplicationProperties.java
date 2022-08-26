@@ -27,5 +27,7 @@ public class ApplicationProperties {
       private String apiAuthKey;
 
       private String newChallengeTemplateId;
+
+      private String appId;
     }
 }
