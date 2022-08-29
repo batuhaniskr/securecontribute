@@ -11,5 +11,6 @@ import java.util.Optional;
 @Repository
 public interface IssueChallengeRepository extends PagingAndSortingRepository<IssueChallenge, Integer> {
   Optional<IssueChallenge> findByStatusIn(List<IssueChallengeStatus> statuses);
+
   List<IssueChallenge> findAll();
 }

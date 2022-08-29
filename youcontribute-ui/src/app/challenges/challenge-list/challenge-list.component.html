@@ -1,1 +1,22 @@
-<p>challenge-list works!</p>
+<div class="row">
+    <div class="col-lg-12">        
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Repository</th>
+                <th scope="col">Issue</th>   
+                <th scope="col">Creation Date</th>                        
+                <th scope="col">Status</th>                        
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let challenge of challenges">                            
+                <td>{{ challenge.repositoryTitle }}</td>
+                <td>{{ challenge.issueTitle }}</td>
+                <td>{{ challenge.creationDate | date: 'medium' }}</td>
+                <td>{{ challenge.status }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
