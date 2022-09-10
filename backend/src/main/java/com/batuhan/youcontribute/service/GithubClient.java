@@ -2,6 +2,7 @@ package com.batuhan.youcontribute.service;
 
 import com.batuhan.youcontribute.config.GithubProperties;
 import com.batuhan.youcontribute.service.models.GithubIssueResponse;
+import com.batuhan.youcontribute.service.models.GithubPullResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,4 +33,17 @@ public class GithubClient {
 
         return response.getBody();
     }
+
+  public GithubPullResponse[] listPullRequests(String owner, String repository) {
+    String pullRequestUrl = String.format("%s/repos/%s/%s/pulls?state=closed",
+      this.githubProperties.getApiUrl(), owner, repository);
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Authorization","token " + this.githubProperties.getToken());
+    HttpEntity request = new HttpEntity(headers);
+    ResponseEntity<GithubPullResponse[]> response = this.restTemplate.exchange(
+      pullRequestUrl, HttpMethod.GET,
+      request, GithubPullResponse[].class);
+
+    return response.getBody();
+  }
 }

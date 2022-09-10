@@ -20,7 +20,13 @@ public class IssueService {
 
     @Transactional
     public void saveAll(List<Issue> issues) {
-        this.issueRepository.saveAll(issues);
+      issues.forEach(
+        issue -> {
+          if (this.issueRepository.findByGithubIssueId(issue.getGithubIssueId()).isEmpty()) {
+            this.issueRepository.save(issue);
+          }
+        });
+      this.issueRepository.saveAll(issues);
     }
 
     public List<Issue> list(Integer repositoryId) {

@@ -14,7 +14,7 @@
                 <td>{{ challenge.repositoryTitle }}</td>
                 <td>{{ challenge.issueTitle }}</td>
                 <td>{{ challenge.creationDate | date: 'medium' }}</td>
-                <td>{{ challenge.status }}</td>
+                <td><app-status [badge-text]="challenge.status"></app-status></td>
               </tr>
             </tbody>
           </table>

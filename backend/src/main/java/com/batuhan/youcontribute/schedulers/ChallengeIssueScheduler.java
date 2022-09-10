@@ -22,7 +22,7 @@ public class ChallengeIssueScheduler {
   private final OneSignalClient oneSignalClient;
 
   @Scheduled(fixedRateString = "${application.challenge-frequency}")
-  public void importIssueScheduler() {
+  public void challengeIssueScheduler() {
     log.info("Challenge issue scheduler started");
     if (this.issueChallengeService.hasOngoingChallenge()) {
       log.warn("There is already opening challenge, skipping");
