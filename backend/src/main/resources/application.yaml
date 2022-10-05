@@ -11,7 +11,7 @@ github:
 application:
   import-frequency: ${ISSUES_IMPORT_FREQUENCY:60000}
   challenge-frequency: ${ISSUES_CHALLENGE_FREQUENCY:10000}
-  challenge-tracking: ${CHALLENGE_TRACKING_FREQUENCY:10000}
+  challenge-tracking-frequency: ${CHALLENGE_TRACKING_FREQUENCY:10000}
   one-signal:
     api-auth-key: ${ONE_SIGNAL_API_AUTH_KEY}
     new-challenge-template-id: "2316b607-fb66-40be-bb20-780048c0e934"

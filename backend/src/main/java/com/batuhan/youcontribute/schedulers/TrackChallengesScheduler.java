@@ -23,7 +23,7 @@ public class TrackChallengesScheduler {
 
   private final GithubClient githubClient;
 
-  @Scheduled(fixedRateString = "${application.challange-tracking-frequency}")
+  @Scheduled(fixedRateString = "${application.challenge-tracking-frequency}")
   public void challengeIssueScheduler() {
     log.info("Track challenge scheduler started");
     this.issueChallengeService.list()
